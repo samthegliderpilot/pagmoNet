@@ -32,6 +32,22 @@ dependencies {
 
 > **IPOPT (`pagmonet4j-ipopt`)**: The base `pagmonet4j` already contains the `ipopt` algorithm — it loads `libipopt` at runtime via `dlopen`, so no IPOPT is linked into the (MPL-2.0) base. Add `pagmonet4j-ipopt` to bundle a `libipopt` (it carries the native for every platform), or bring your own via a system install or the `PAGMONET_IPOPT_LIBRARY` environment variable. Without it, `ipopt` simply reports unavailable — check `OptionalSolverAvailability.isIpoptAvailable()` before use.
 
+## Native access
+
+PagmoNet4j loads its native library via JNI (`System.loadLibrary`). Starting with JDK 24, the JVM
+warns about this unless native access is explicitly granted at launch, and a future JDK release will
+turn that warning into a hard `IllegalCallerException`. This is a JVM security boundary, not a bug —
+it can only be granted by whoever owns the final `java` launch command, so it has to be set **in your
+own application**, not in PagmoNet4j:
+
+- **Plain `java` / most launchers**: add the JVM flag `--enable-native-access=ALL-UNNAMED`.
+- **`java -jar your-app.jar`**: alternatively, add `Enable-Native-Access: ALL-UNNAMED` to your app's
+  own jar manifest — the launcher reads it from the jar being run, not from a dependency's jar.
+- **Gradle `application` plugin**: set `applicationDefaultJvmArgs = listOf("--enable-native-access=ALL-UNNAMED")`
+  (this is how the [examples](examples/) do it).
+
+This applies to any consumer of `pagmonet4j` or `pagmonet4j-ipopt`, not just this repo's examples.
+
 ## Quickstart
 
 ```java

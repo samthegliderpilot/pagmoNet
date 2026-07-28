@@ -37,4 +37,9 @@ dependencies {
 
 application {
     mainClass.set("io.github.pagmonet.pagmonet4j.examples.Main")
+    // pagmonet4j loads native code via JNI; JDK 24+ warns (and a future JDK will hard-fail) unless
+    // native access is granted at launch. Baked in here so `gradlew run` / the installDist scripts
+    // don't show it -- consumers embedding pagmonet4j in their own app must add this flag themselves,
+    // since a dependency can't grant it on their behalf. See PagmoNet4j/README.md#native-access.
+    applicationDefaultJvmArgs = listOf("--enable-native-access=ALL-UNNAMED")
 }

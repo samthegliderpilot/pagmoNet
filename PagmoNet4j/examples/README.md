@@ -19,6 +19,12 @@ Runnable examples that teach both how to use PagmoNet4j APIs and why optimizatio
 
   (Or set the `GITHUB_ACTOR` / `GITHUB_TOKEN` environment variables instead.)
 
+- **Native access** — pagmonet4j loads native code via JNI, which JDK 24+ warns about (and a future
+  JDK will hard-fail on) unless granted at launch. `build.gradle.kts` already sets
+  `--enable-native-access=ALL-UNNAMED`, so running the examples won't show the warning. If you embed
+  pagmonet4j in your own app, you'll need to add that same flag yourself — see
+  [the main README](../README.md#native-access).
+
 ## Run
 
 The examples resolve the **published** `pagmonet4j` packages from GitHub Packages — no native build

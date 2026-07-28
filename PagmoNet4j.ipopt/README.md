@@ -13,6 +13,10 @@ IPOPT is a gradient-based interior-point solver for large-scale nonlinear constr
 - JDK 17+
 - The base **`pagmonet4j`** artifact (a dependency of this one — resolved automatically)
 - No separate IPOPT installation required — the native binaries are bundled here and extracted at load time
+- **JDK 24+**: pass `--enable-native-access=ALL-UNNAMED` to your own app's `java` launch (this artifact
+  loads native code via JNI, and the JVM warns — and will eventually hard-fail — without it). See
+  [PagmoNet4j's README](../PagmoNet4j/README.md#native-access) for details; this has to be set in your
+  application, since a dependency can't grant it for you.
 
 ## Installation
 
