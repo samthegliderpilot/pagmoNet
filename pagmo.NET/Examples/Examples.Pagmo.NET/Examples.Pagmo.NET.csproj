@@ -5,6 +5,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- Framework-dependent test machines may only have a newer major .NET installed (e.g. .NET 10,
+         no .NET 8) -- roll forward instead of requiring an exact major-version match. Self-contained
+         builds bundle their own runtime, so this is a no-op for those. -->
+    <RollForward>LatestMajor</RollForward>
   </PropertyGroup>
 
   <ItemGroup>
